@@ -36,20 +36,21 @@ resource "aws_instance" "instance" {
       "whoami",
     ]
 
-    provisioner "remote-exec" {
-      connection {
-        type     = "ssh"
-        user = "ec2-user"
-        host = "${aws_instance.instance.public_ip}"
-        //private_key = "${file(local.pkey)}"
-        private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa")}"
-      }
+   }
+  provisioner "remote-exec" {
+    connection {
+      type     = "ssh"
+      user = "ec2-user"
+      host = "${aws_instance.instance.public_ip}"
+      //private_key = "${file(local.pkey)}"
+      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa")}"
+    }
 
-      inline = [
-        "docker pull mvertes/alpine-mongo",
-        "docker run -d --name mongo -p 27017:27017 mvertes/alpine-mongo"
-      ]
-    }}
+    inline = [
+      "docker pull mvertes/alpine-mongo",
+      "docker run -d --name mongo -p 27017:27017 mvertes/alpine-mongo"
+    ]
+  }
 
 
 
