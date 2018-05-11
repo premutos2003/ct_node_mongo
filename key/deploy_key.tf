@@ -31,7 +31,7 @@ resource "null_resource" "private-key-encrypt" {
     command = "ls"
   }
   provisioner "local-exec" {
-    command = "aws kms encrypt --region ${var.region} --key-id ${var.kms_key_arn} --plaintext=fileb://base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa --output text --query CiphertextBlob | base64  --decode > base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa_encrypted"
+    command = "aws kms encrypt --region ${var.region} --key-id ${var.kms_key_arn} --plaintext=fileb://base_${var.stack}_${var.git_project}_${var.environment}_id-rsa --output text --query CiphertextBlob | base64  --decode > base_${var.stack}_${var.git_project}_${var.environment}_id-rsa_encrypted"
   }
 
 }
