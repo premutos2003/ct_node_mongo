@@ -2,7 +2,7 @@ resource "aws_instance" "instance" {
   depends_on = ["aws_s3_bucket_object.deploy_artefact","aws_iam_policy.deploy_policy"]
   ami = "ami-d3c022bc"
 
-  key_name = "base_${var.stack}_${var.git_project}_${var.environment}_${var.region}"
+  key_name = "base_${var.stack}_${var.git_project}_${var.environment}"
 
   vpc_security_group_ids = ["${var.sec_gp_id}"]
   subnet_id = "${var.subnet_id}"
@@ -16,7 +16,7 @@ resource "aws_instance" "instance" {
       type     = "ssh"
       user = "ec2-user"
       host = "${aws_instance.instance.public_ip}"
-      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa")}"
+      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_id-rsa")}"
     }
     inline = [
       "pip install --upgrade awscli",
@@ -43,7 +43,7 @@ resource "aws_instance" "instance" {
       user = "ec2-user"
       host = "${aws_instance.instance.public_ip}"
       //private_key = "${file(local.pkey)}"
-      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa")}"
+      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_id-rsa")}"
     }
 
     inline = [
@@ -60,7 +60,7 @@ resource "aws_instance" "instance" {
       user = "ec2-user"
       host = "${aws_instance.instance.public_ip}"
       //private_key = "${file(local.pkey)}"
-      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa")}"
+      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_id-rsa")}"
     }
 
     inline = [

@@ -1,13 +1,13 @@
 resource "null_resource" "ssh-key" {
 
   provisioner "local-exec" {
-    command = "ssh-keygen -t rsa -f './base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa' -N ''"
+    command = "ssh-keygen -t rsa -f './base_${var.stack}_${var.git_project}_${var.environment}_id-rsa' -N ''"
   }
   provisioner "local-exec" {
-    command = "chmod 777 base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa"
+    command = "chmod 777 base_${var.stack}_${var.git_project}_${var.environment}_id-rsa"
   }
   provisioner "local-exec" {
-    command = "chmod 777 base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa.pub"
+    command = "chmod 777 base_${var.stack}_${var.git_project}_${var.environment}_id-rsa.pub"
   }
 }
 
@@ -15,9 +15,9 @@ resource "null_resource" "ssh-key" {
 
 resource "aws_s3_bucket_object" "ec2-ssh-public-key" {
   depends_on = ["null_resource.ssh-key","aws_s3_bucket.secrets_bucket"]
-  key        = "base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_ssh.pub"
+  key        = "base_${var.stack}_${var.git_project}_${var.environment}_ssh.pub"
   bucket     = "${aws_s3_bucket.secrets_bucket.id}"
-  source     = "./base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa.pub"
+  source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa.pub"
   kms_key_id = "${var.kms_key_arn}"
   content_type = "text/*"
 
@@ -41,9 +41,9 @@ resource "null_resource" "private-key-encrypt" {
 resource "aws_s3_bucket_object" "ec2-ssh-private-key" {
 
   depends_on = ["null_resource.private-key-encrypt","aws_s3_bucket.secrets_bucket"]
-  key        = "base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_ssh_private_key_encrypted"
+  key        = "base_${var.stack}_${var.git_project}_${var.environment}_ssh_private_key_encrypted"
   bucket     = "${aws_s3_bucket.secrets_bucket.id}"
-  source     = "./base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa_encrypted"
+  source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa_encrypted"
   kms_key_id = "${var.kms_key_arn}"
   content_type = "text/*"
 
@@ -59,7 +59,7 @@ data "aws_s3_bucket_object" "ssh-public-key" {
 /* Create key pair resource */
 
 resource "aws_key_pair" "key" {
-  key_name                  = "base_${var.stack}_${var.git_project}_${var.environment}_${var.region}"
+  key_name                  = "base_${var.stack}_${var.git_project}_${var.environment}"
   public_key                = "${data.aws_s3_bucket_object.ssh-public-key.body}"
 
   lifecycle {
@@ -69,10 +69,10 @@ resource "aws_key_pair" "key" {
 }
 
 resource "aws_s3_bucket" "secrets_bucket" {
-  bucket = "${var.stack}-${var.git_project}-${var.environment}-${var.region}-secrets"
+  bucket = "${var.stack}-${var.git_project}-${var.environment}-secrets"
   region = "${var.region}"
 }
 
 locals {
-  pkey= "base_${var.stack}_${var.git_project}_${var.environment}_${var.region}_id-rsa"
+  pkey= "base_${var.stack}_${var.git_project}_${var.environment}_id-rsa"
 }
