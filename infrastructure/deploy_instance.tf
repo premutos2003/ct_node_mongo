@@ -48,7 +48,7 @@ resource "aws_instance" "instance" {
 
     inline = [
       "docker pull mvertes/alpine-mongo",
-      "docker run -p 27017:27017 mvertes/alpine-mongo"
+      "docker run -d -p 27017:27017 --add-host ${var.git_project}:${aws_instance.instance.public_ip}  mvertes/alpine-mongo"
     ]
   }
 
