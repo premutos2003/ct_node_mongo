@@ -20,6 +20,7 @@ resource "aws_instance" "instance" {
     }
     inline = [
       "pip install --upgrade awscli",
+      "pip install docker-compose",
       "export PATH=/home/ec2-user/.local/bin:$PATH",
       "aws --version",
       //"sudo yum update -y",
