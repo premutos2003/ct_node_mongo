@@ -1,16 +1,14 @@
-FROM node:alpine
-
-ARG port
-ARG folder=./app
-ARG REACT_APP_PROD_API_URL=localhost
+FROM node
 
 WORKDIR /usr/src/app
-
-COPY ${folder} /package*.json ./
+ARG port
+COPY app /package*.json ./
 
 RUN npm install
 
-COPY ./${folder} .
+RUN apt-get update
+
+COPY ./app .
 EXPOSE $port
 
 CMD npm start

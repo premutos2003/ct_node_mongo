@@ -6,7 +6,7 @@ resource "aws_instance" "instance" {
 
   vpc_security_group_ids = ["${var.sec_gp_id}"]
   subnet_id = "${var.subnet_id}"
-
+  user_data = "${file("${path.module}/docker-compose.yml")}"
   instance_type = "t2.micro"
   associate_public_ip_address = true
   iam_instance_profile = "${aws_iam_instance_profile.deploy_profile.name}"
@@ -37,21 +37,6 @@ resource "aws_instance" "instance" {
     ]
 
    }
-  provisioner "remote-exec" {
-    connection {
-      type     = "ssh"
-      user = "ec2-user"
-      host = "${aws_instance.instance.public_ip}"
-      //private_key = "${file(local.pkey)}"
-      private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_id-rsa")}"
-    }
-
-    inline = [
-      "docker pull mvertes/alpine-mongo",
-      "docker run -d -p 27017:27017 mvertes/alpine-mongo"
-    ]
-  }
-
 
 
   provisioner "remote-exec" {
@@ -65,9 +50,11 @@ resource "aws_instance" "instance" {
 
     inline = [
       "docker images",
+      "export PORT=${var.port}",
+      "export PROJECT_NAME=${var.git_project}",
       "gunzip ./artefact/${var.version}.tar.gz",
       "docker load < ./artefact/${var.version}.tar",
-      "docker run -d -p 80:${var.port} --add-host ${var.git_project}:${aws_instance.instance.public_ip}  ${var.git_project}:latest"
+      "docker-compose up -d"
     ]
   }
 }
