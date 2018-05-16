@@ -6,7 +6,10 @@ resource "aws_instance" "instance" {
 
   vpc_security_group_ids = ["${var.sec_gp_id}"]
   subnet_id = "${var.subnet_id}"
-  user_data = "${file("${path.module}/docker-compose.yml")}"
+  user_data = <<-EOF
+               PORT="${var.port}"
+               PROJECT_NAME="${var.git_project}"
+              EOF
   instance_type = "t2.micro"
   associate_public_ip_address = true
   iam_instance_profile = "${aws_iam_instance_profile.deploy_profile.name}"
