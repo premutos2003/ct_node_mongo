@@ -10,7 +10,10 @@ resource "aws_instance" "instance" {
   instance_type = "t2.micro"
   associate_public_ip_address = true
   iam_instance_profile = "${aws_iam_instance_profile.deploy_profile.name}"
-
+  provisioner "file" {
+    source = "./docker-compose.yml"
+    destination = "./docker-compose.yml"
+  }
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
