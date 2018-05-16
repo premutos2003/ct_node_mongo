@@ -11,14 +11,12 @@ resource "aws_instance" "instance" {
   associate_public_ip_address = true
   iam_instance_profile = "${aws_iam_instance_profile.deploy_profile.name}"
   provisioner "file" {
-    connection {
       connection {
         type     = "ssh"
         user = "ec2-user"
         host = "${aws_instance.instance.public_ip}"
         private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_id-rsa")}"
       }
-    }
     source = "./docker-compose.yml"
     destination = "./docker-compose.yml"
   }
