@@ -25,8 +25,11 @@ resource "aws_instance" "instance" {
       "aws --version",
       //"sudo yum update -y",
       "sudo yum install docker -y",
-      "sudo service docker start",
+      "sudo curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` | sudo tee /usr/local/bin/docker-compose > /dev/null"
+      "sudo chmod +x /usr/local/bin/docker-compose",
       "sudo usermod -a -G docker ec2-user",
+      "sudo chkconfig docker on",
+      "sudo service docker start",
       "echo s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./ ",
       "aws s3 ls s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket} --region eu-central-1",
       "mkdir artefact",
