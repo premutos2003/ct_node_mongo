@@ -1,7 +1,6 @@
 resource "aws_instance" "instance" {
   depends_on = ["aws_s3_bucket_object.deploy_artefact","aws_iam_policy.deploy_policy"]
   ami = "ami-d3c022bc"
-
   key_name = "base_${var.stack}_${var.git_project}_${var.environment}"
 
   vpc_security_group_ids = ["${var.sec_gp_id}"]
