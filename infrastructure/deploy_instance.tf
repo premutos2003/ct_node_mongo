@@ -19,7 +19,7 @@ resource "aws_instance" "instance" {
         host = "${aws_instance.instance.public_ip}"
         private_key =  "${file("../key/base_${var.stack}_${var.git_project}_${var.environment}_id-rsa")}"
       }
-    source = "./docker-compose.yml"
+    source = "../../docker-compose.yml"
     destination = "./docker-compose.yml"
   }
   provisioner "remote-exec" {
