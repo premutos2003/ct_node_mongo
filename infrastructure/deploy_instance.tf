@@ -69,7 +69,7 @@ resource "aws_instance" "instance" {
       "export PROJECT_NAME=${var.git_project}",
       "gunzip ./artefact/${var.version}.tar.gz",
       "docker load < ./artefact/${var.version}.tar",
-      "docker-compose up -d"
+      "docker-compose up "
     ]
   }
 }
