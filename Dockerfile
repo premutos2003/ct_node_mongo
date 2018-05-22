@@ -2,6 +2,7 @@ FROM node:alpine
 
 ARG entry
 
+RUN echo $entry
 WORKDIR /usr/src/app
 ARG port
 COPY app /package*.json ./
