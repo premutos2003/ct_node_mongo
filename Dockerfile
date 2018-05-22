@@ -12,4 +12,4 @@ RUN npm install pm2 -g
 COPY ./app .
 EXPOSE $port
 
-CMD entry
+CMD $entry
