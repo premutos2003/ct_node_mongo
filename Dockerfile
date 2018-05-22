@@ -1,6 +1,6 @@
 FROM node:alpine
 
-ARG exec
+ARG entry
 
 WORKDIR /usr/src/app
 ARG port
@@ -12,4 +12,4 @@ RUN npm install pm2 -g
 COPY ./app .
 EXPOSE $port
 
-CMD pm2 $exec
+CMD entry
