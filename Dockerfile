@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM mhart/alpine-node:latest
 
 ARG entry
 ENV my_env=$entry
