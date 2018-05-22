@@ -1,6 +1,7 @@
 FROM node:alpine
 
 ARG entry
+ENV my_env=$entry
 
 RUN echo $entry
 WORKDIR /usr/src/app
@@ -13,4 +14,4 @@ RUN npm install pm2 -g
 COPY ./app .
 EXPOSE $port
 
-CMD [$entry]
+CMD $my_env
