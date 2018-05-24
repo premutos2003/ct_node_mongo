@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_bucket_deploy_artefact" {
-  bucket = "${var.stack}-${var.git_project}-docker-artefact"
+  bucket = "app-state-${var.stack}-${var.git_project}"
   force_destroy = true
   acl = "private"
   region = "${var.region}"
