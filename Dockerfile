@@ -12,6 +12,6 @@ RUN npm install
 
 RUN npm install pm2 -g
 COPY ./app .
-EXPOSE $port
-ENTRYPOINT["/bin/bash"]
+
 CMD $my_env
+EXPOSE $port
