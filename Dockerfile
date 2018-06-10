@@ -13,5 +13,5 @@ RUN npm install
 RUN npm install pm2 -g
 COPY ./app .
 
-CMD $my_env
+ENTRYPOINT $my_env
 EXPOSE $port
