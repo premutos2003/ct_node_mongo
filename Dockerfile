@@ -13,5 +13,7 @@ RUN npm install
 RUN npm install pm2 -g
 COPY ./app .
 
-ENTRYPOINT $my_env
+RUN ls
+
 EXPOSE $port
+CMD $my_env --no-daemon
