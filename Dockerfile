@@ -16,4 +16,4 @@ COPY ./app .
 RUN ls
 
 EXPOSE $port
-CMD $my_env --no-daemon
+CMD $my_env
