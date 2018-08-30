@@ -8,9 +8,9 @@ WORKDIR /usr/src/app
 ARG port
 COPY app /package*.json ./
 
-RUN npm install
+RUN npm install ---no-audit
 
-RUN npm install pm2 -g
+RUN npm install pm2 -g --no-audit
 COPY ./app .
 
 RUN ls
