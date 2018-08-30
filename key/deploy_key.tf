@@ -18,7 +18,6 @@ resource "aws_s3_bucket_object" "ec2-ssh-public-key" {
   key        = "base_${var.stack}_${var.git_project}_${var.environment}_ssh.pub"
   bucket     = "${aws_s3_bucket.secrets_bucket.id}"
   source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa.pub"
-  kms_key_id = "${var.kms_key_arn}"
   content_type = "text/*"
 
 }
@@ -44,7 +43,6 @@ resource "aws_s3_bucket_object" "ec2-ssh-private-key" {
   key        = "base_${var.stack}_${var.git_project}_${var.environment}_ssh_private_key_encrypted"
   bucket     = "${aws_s3_bucket.secrets_bucket.id}"
   source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa_encrypted"
-  kms_key_id = "${var.kms_key_arn}"
   content_type = "text/*"
 
 }
