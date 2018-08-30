@@ -42,7 +42,7 @@ resource "aws_instance" "instance" {
       "sudo chkconfig docker on",
       "sudo service docker start",
       "echo s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./ ",
-      "aws s3 ls s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket} --region eu-central-1",
+      "aws s3 ls s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket} --region ${var.region}",
       "mkdir artefact",
       "ls",
       "aws s3 cp s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./artefact --region ${var.region}",
