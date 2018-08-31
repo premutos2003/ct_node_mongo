@@ -64,12 +64,12 @@ resource "aws_instance" "instance" {
     }
 
     inline = [
-      "docker images",
+      "sudo docker images",
       "export PORT=${var.port}",
       "export PROJECT_NAME=${var.git_project}",
       "gunzip ./artefact/${var.version}.tar.gz",
-      "docker load < ./artefact/${var.version}.tar",
-      "docker-compose up -d"
+      "sudo docker load < ./artefact/${var.version}.tar",
+      "sudo docker-compose up -d"
     ]
   }
 }
