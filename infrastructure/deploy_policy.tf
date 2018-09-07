@@ -38,7 +38,9 @@ resource "aws_iam_instance_profile" "deploy_profile" {
 data "aws_iam_policy_document" "deploy_role_policy_document" {
   "statement" {
     actions = [
-      "s3:*"
+      "s3:*",
+      "cloudwatch:*",
+      "logs:*",
     ]
     effect = "Allow"
     resources = [
