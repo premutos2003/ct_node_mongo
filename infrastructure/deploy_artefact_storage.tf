@@ -1,15 +1,15 @@
-resource "aws_s3_bucket" "s3_bucket_deploy_artefact" {
-  bucket = "app-state-${var.stack}-${var.git_project}"
-  force_destroy = true
-  acl = "private"
-  region = "${var.region}"
 
-}
-resource "aws_s3_bucket_object" "deploy_artefact" {
-  source = "./${var.git_project}.tar.gz"
-  bucket = "${aws_s3_bucket.s3_bucket_deploy_artefact.id}"
-  key = "${var.stack}-${var.git_project}/${var.version}.tar.gz"
-}
+  resource "aws_s3_bucket" "s3_bucket_deploy_artefact" {
+    bucket = "test-bucket-87778189"
+    force_destroy = true
+    region = "eu-west-1"
+
+  }
+  resource "aws_s3_bucket_object" "deploy_artefact" {
+    source = "artefact.tar.gz"
+    bucket = "${aws_s3_bucket.s3_bucket_deploy_artefact.id}"
+    key = "artefact.tar.gz"
+  }
 
 
 

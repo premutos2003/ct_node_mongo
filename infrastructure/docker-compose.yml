@@ -4,6 +4,12 @@ services:
         image: ${PROJECT_NAME}:latest
         ports:
             - 80:${PORT}
+        logging:
+              driver: 'awslogs'
+              options:
+                awslogs-region: ${REGION}
+                awslogs-group: ${LOG_GROUP}
+                awslogs-stream: ${PROJECT_NAME}
         links:
             - mongodb
         depends_on:

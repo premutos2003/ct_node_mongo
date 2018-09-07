@@ -44,11 +44,7 @@ resource "aws_instance" "instance" {
       "echo s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./ ",
       "aws s3 ls s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}",
       "mkdir artefact",
-      "ls",
       "aws s3 cp s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./artefact",
-      "ls",
-      "ls ./artefact",
-      "whoami",
     ]
 
    }
@@ -67,12 +63,18 @@ resource "aws_instance" "instance" {
       "sudo docker images",
       "export PORT=${var.port}",
       "export PROJECT_NAME=${var.git_project}",
+      "export LOG_GROUP=${var.stack}-${var.git_project}-${var.environment}",
+      "export REGION=${var.region}",
       "gunzip ./artefact/${var.version}.tar.gz",
       "sudo docker load < ./artefact/${var.version}.tar",
       "docker-compose up -d"
     ]
   }
+
 }
 
-
+resource "aws_cloudwatch_log_group" "docker_logs" {
+  name              = "${var.stack}-${var.git_project}-${var.environment}"
+  retention_in_days = "7"
+}
 
