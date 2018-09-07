@@ -2,7 +2,7 @@
   resource "aws_s3_bucket" "s3_bucket_deploy_artefact" {
     bucket = "test-bucket-87778189"
     force_destroy = true
-    region = "eu-west-1"
+    region = "${var.region}"
 
   }
   resource "aws_s3_bucket_object" "deploy_artefact" {
