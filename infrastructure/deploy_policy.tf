@@ -46,7 +46,8 @@ data "aws_iam_policy_document" "deploy_role_policy_document" {
     resources = [
       "${aws_s3_bucket.s3_bucket_deploy_artefact.arn}",
       "${aws_s3_bucket.s3_bucket_deploy_artefact.arn}/*",
-      "${aws_cloudwatch_log_group.docker_logs.arn}}"
+      "${aws_cloudwatch_log_group.docker_logs.arn}",
+      "arn:aws:logs:*:*:*"
     ]
   }
 }
