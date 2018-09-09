@@ -17,3 +17,13 @@ RUN ls
 
 EXPOSE $port
 CMD $my_env
+
+
+
+
+
+
+
+
+
+
