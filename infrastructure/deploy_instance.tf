@@ -78,14 +78,16 @@ resource "aws_cloudwatch_log_group" "docker_logs" {
   retention_in_days = "7"
 }
 
-data "aws_ami" "ubuntu" {
+data "aws_ami" "ami" {
   most_recent = true
 
-  filter {
-    name   = "platform"
-    values = ["Amazon linux"]
-  }
+  # ubuntu ami account ID
+  owners = ["099720109477"]
 
+  filter {
+    name = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
+  }
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
@@ -93,10 +95,6 @@ data "aws_ami" "ubuntu" {
   filter {
     name   = "root-device-type"
     values = ["ebs"]
-  }
-  filter {
-    name   = "owner"
-    values = ["Amazon images"]
   }
 
 }
