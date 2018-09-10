@@ -1,6 +1,6 @@
 resource "aws_instance" "instance" {
   depends_on = ["aws_s3_bucket_object.deploy_artefact","aws_iam_policy.deploy_policy"]
-  ami = "${var.ami}"
+  ami = "${data.aws_ami.ubuntu.id}"
   key_name = "base_${var.stack}_${var.git_project}_${var.environment}"
 
   vpc_security_group_ids = ["${var.sec_gp_id}"]
@@ -78,3 +78,18 @@ resource "aws_cloudwatch_log_group" "docker_logs" {
   retention_in_days = "7"
 }
 
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["Amazon images"] # Canonical
+}
