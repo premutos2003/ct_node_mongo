@@ -82,15 +82,19 @@ data "aws_ami" "ami" {
   most_recent = true
 
   # ubuntu ami account ID
-  owners = ["099720109477"]
+  owners = ["amazon"]
 
   filter {
     name = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-xenial-16.04-amd64-server-*"]
+    values = ["amzn-ami-hvm-????.??.?.????????-x86_64-gp2"]
   }
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
+  }
+  filter {
+    name   = "state"
+    values = ["available"]
   }
   filter {
     name   = "root-device-type"
