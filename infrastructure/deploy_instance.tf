@@ -91,5 +91,5 @@ data "aws_ami" "ubuntu" {
     values = ["hvm"]
   }
 
-  owners = ["Amazon images"] # Canonical
+  owners = ["099720109477"]
 }
