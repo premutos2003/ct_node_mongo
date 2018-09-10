@@ -51,3 +51,7 @@ data "aws_iam_policy_document" "deploy_role_policy_document" {
     ]
   }
 }
+resource "aws_cloudwatch_log_group" "docker_logs" {
+  name              = "${var.stack}-${var.git_project}-${var.environment}"
+  retention_in_days = "7"
+}

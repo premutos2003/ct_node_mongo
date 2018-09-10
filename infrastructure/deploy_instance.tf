@@ -73,10 +73,7 @@ resource "aws_instance" "instance" {
 
 }
 
-resource "aws_cloudwatch_log_group" "docker_logs" {
-  name              = "${var.stack}-${var.git_project}-${var.environment}"
-  retention_in_days = "7"
-}
+
 
 data "aws_ami" "ami" {
   most_recent = true
