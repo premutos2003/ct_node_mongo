@@ -1,21 +1,21 @@
 variable "stack" {
   type = "string"
-  default = "express"
+  default = ""
 }
 variable "region" {
   type = "string"
-  default = "eu-central-1"
+  default = ""
 }
 variable "git_project" {
   type = "string"
-  default ="ct-web-app"
+  default =""
 
 }
 variable "environment" {
   type = "string"
-  default = "dev"
+  default = ""
 }
 variable "kms_key_arn" {
   type = "string"
-  default = "arn:aws:kms:eu-central-1:091744087420:key/926fb572-8f5e-426f-a75d-f3797f441896"
+  default = ""
 }

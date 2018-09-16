@@ -44,8 +44,8 @@ data "aws_iam_policy_document" "deploy_role_policy_document" {
     ]
     effect = "Allow"
     resources = [
-      "${aws_s3_bucket.s3_bucket_deploy_artefact.arn}",
-      "${aws_s3_bucket.s3_bucket_deploy_artefact.arn}/*",
+      "arn:aws:s3:::${var.environment}",
+      "arn:aws:s3:::${var.environment}/*",
       "${aws_cloudwatch_log_group.docker_logs.arn}",
       "arn:aws:logs:*:*:*"
     ]

@@ -1,26 +1,26 @@
 variable "stack" {
   type = "string"
-  default = "express"
+  default = ""
 }
 variable "region" {
   type = "string"
-  default = "eu-central-1"
+  default = ""
 }
 variable "git_project" {
   type = "string"
-  default ="ct-web-app"
+  default =""
 
 }variable "port" {
   type = "string"
-  default = "3000",
+  default = "",
 }
 variable "version" {
   type = "string"
-  default = "0.1"
+  default = ""
 }
 variable "environment" {
   type = "string"
-  default = "dev"
+  default = ""
 }
 variable "kms_key_arn" {
   type = "string"
@@ -32,9 +32,9 @@ variable "ami" {
 }
 variable "sec_gp_id" {
   type = "string"
-  default = "default"
+  default = ""
 }
 variable "subnet_id" {
   type = "string"
-  default = "default"
+  default = ""
 }

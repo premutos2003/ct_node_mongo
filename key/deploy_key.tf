@@ -15,8 +15,8 @@ resource "null_resource" "ssh-key" {
 
 resource "aws_s3_bucket_object" "ec2-ssh-public-key" {
   depends_on = ["null_resource.ssh-key","aws_s3_bucket.secrets_bucket"]
-  key        = "base_${var.stack}_${var.git_project}_${var.environment}_ssh.pub"
-  bucket     = "${aws_s3_bucket.secrets_bucket.id}"
+  key        = "/apps/${var.stack}-${var.git_project}/secrets/base_${var.stack}_${var.git_project}_${var.environment}_ssh.pub"
+  bucket     = "${var.environment}-infra-base"
   source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa.pub"
   content_type = "text/*"
 
@@ -40,8 +40,8 @@ resource "null_resource" "private-key-encrypt" {
 resource "aws_s3_bucket_object" "ec2-ssh-private-key" {
 
   depends_on = ["null_resource.private-key-encrypt","aws_s3_bucket.secrets_bucket"]
-  key        = "base_${var.stack}_${var.git_project}_${var.environment}_ssh_private_key_encrypted"
-  bucket     = "${aws_s3_bucket.secrets_bucket.id}"
+  key        = "/apps/${var.stack}-${var.git_project}/secrets/base_${var.stack}_${var.git_project}_${var.environment}_ssh_private_key_encrypted"
+  bucket     = "${var.environment}-infra-base"
   source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa_encrypted"
   content_type = "text/*"
 
@@ -50,8 +50,8 @@ resource "aws_s3_bucket_object" "ec2-ssh-private-key" {
 /* Access public key as data source */
 
 data "aws_s3_bucket_object" "ssh-public-key" {
-  bucket = "${aws_s3_bucket.secrets_bucket.id}"
-  key = "${aws_s3_bucket_object.ec2-ssh-public-key.id}"
+  bucket = "${var.environment}-infra-base"
+  key = "/apps/${var.stack}-${var.git_project}/secrets/${aws_s3_bucket_object.ec2-ssh-public-key.id}"
 }
 
 /* Create key pair resource */
@@ -66,11 +66,3 @@ resource "aws_key_pair" "key" {
 
 }
 
-resource "aws_s3_bucket" "secrets_bucket" {
-  bucket = "${var.stack}-${var.git_project}-${var.environment}-secrets"
-  region = "${var.region}"
-}
-
-locals {
-  pkey= "base_${var.stack}_${var.git_project}_${var.environment}_id-rsa"
-}

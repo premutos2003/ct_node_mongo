@@ -41,10 +41,9 @@ resource "aws_instance" "instance" {
       "sudo usermod -a -G docker ec2-user",
       "sudo chkconfig docker on",
       "sudo service docker start",
-      "echo s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./ ",
-      "aws s3 ls s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}",
+      "echo s3://${var.environment}-infra-base/${aws_s3_bucket_object.deploy_artefact.key} ./ ",
       "mkdir artefact",
-      "aws s3 cp s3://${aws_s3_bucket.s3_bucket_deploy_artefact.bucket}/${aws_s3_bucket_object.deploy_artefact.key} ./artefact",
+      "aws s3 cp s3://${var.environment}-infra-base/${aws_s3_bucket_object.deploy_artefact.key} ./artefact",
     ]
 
    }
