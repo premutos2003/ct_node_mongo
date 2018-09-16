@@ -43,7 +43,7 @@ resource "aws_instance" "instance" {
       "sudo service docker start",
       "echo s3://${var.environment}-infra-base${aws_s3_bucket_object.deploy_artefact.key} ./ ",
       "mkdir artefact",
-      "aws s3 cp s3://${var.environment}-infra-base/${aws_s3_bucket_object.deploy_artefact.key} ./artefact",
+      "aws s3 cp s3://${var.environment}-infra-base${aws_s3_bucket_object.deploy_artefact.key} ./artefact",
     ]
 
    }
@@ -71,7 +71,6 @@ resource "aws_instance" "instance" {
   }
 
 }
-
 
 
 data "aws_ami" "ami" {
