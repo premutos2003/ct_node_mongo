@@ -64,7 +64,7 @@ resource "aws_instance" "instance" {
       "export PROJECT_NAME=${var.git_project}",
       "export LOG_GROUP=${var.stack}-${var.git_project}-${var.environment}",
       "export REGION=${var.region}",
-      "gunzip ./artefact/${var.version}.tar.gz",
+      "gunzip ./artefact/${var.git_project}.tar.gz",
       "sudo docker load < ./artefact/${var.git_project}.tar",
       "docker-compose up --force-recreate -d"
     ]
