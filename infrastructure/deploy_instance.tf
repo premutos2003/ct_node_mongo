@@ -66,7 +66,7 @@ resource "aws_instance" "instance" {
       "export REGION=${var.region}",
       "gunzip ./artefact/${var.version}.tar.gz",
       "sudo docker load < ./artefact/${var.version}.tar",
-      "docker-compose up -d"
+      "docker-compose build && docker-compose up  -d"
     ]
   }
 
