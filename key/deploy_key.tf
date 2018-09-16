@@ -51,7 +51,7 @@ resource "aws_s3_bucket_object" "ec2-ssh-private-key" {
 
 data "aws_s3_bucket_object" "ssh-public-key" {
   bucket = "${var.environment}-infra-base"
-  key = "/apps/${var.stack}-${var.git_project}/secrets/${aws_s3_bucket_object.ec2-ssh-public-key.id}"
+  key = "${aws_s3_bucket_object.ec2-ssh-public-key.key}"
 }
 
 /* Create key pair resource */
