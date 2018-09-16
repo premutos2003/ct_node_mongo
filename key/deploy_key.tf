@@ -14,7 +14,7 @@ resource "null_resource" "ssh-key" {
 /* Upload plain public key to S3 bucket. */
 
 resource "aws_s3_bucket_object" "ec2-ssh-public-key" {
-  depends_on = ["null_resource.ssh-key","aws_s3_bucket.secrets_bucket"]
+  depends_on = ["null_resource.ssh-key"]
   key        = "/apps/${var.stack}-${var.git_project}/secrets/base_${var.stack}_${var.git_project}_${var.environment}_ssh.pub"
   bucket     = "${var.environment}-infra-base"
   source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa.pub"
@@ -39,7 +39,7 @@ resource "null_resource" "private-key-encrypt" {
 
 resource "aws_s3_bucket_object" "ec2-ssh-private-key" {
 
-  depends_on = ["null_resource.private-key-encrypt","aws_s3_bucket.secrets_bucket"]
+  depends_on = ["null_resource.private-key-encrypt"]
   key        = "/apps/${var.stack}-${var.git_project}/secrets/base_${var.stack}_${var.git_project}_${var.environment}_ssh_private_key_encrypted"
   bucket     = "${var.environment}-infra-base"
   source     = "./base_${var.stack}_${var.git_project}_${var.environment}_id-rsa_encrypted"
